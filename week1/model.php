@@ -6,6 +6,14 @@
  * Time: 15:25
  */
 
+/**
+ * Creates a database object
+ * @param $host
+ * @param $db
+ * @param $user
+ * @param $pass
+ * @return object
+ */
 /* Connect to database*/
 function connect_db($host, $db, $user, $pass){
     $charset = 'utf8mb4';
@@ -148,6 +156,11 @@ function count_series($pdo) {
     return $count;
 }
 
+/**
+ * Selects all series from the database
+ * @param $pdo
+ * @return array
+ */
 function get_series($pdo){
     $stmt = $pdo->prepare('SELECT * FROM series');
     $stmt->execute();
@@ -163,6 +176,11 @@ function get_series($pdo){
     return $series_exp;
 }
 
+/**
+ * Creates an HTML table from the information on a serie
+ * @param $series
+ * @return string
+ */
 function get_serie_table($series){
     $table_exp ='
         <table class="table table-hover">
@@ -189,6 +207,12 @@ function get_serie_table($series){
     return $table_exp;
 }
 
+/**
+ * Retrieves information from a specific serie based on the serie-id
+ * @param $pdo
+ * @param $serie_id
+ * @return array
+ */
 function get_series_info($pdo, $serie_id) {
     $stmt = $pdo->prepare('SELECT * FROM series WHERE id = ?');
     $stmt->execute([$serie_id]);
@@ -202,6 +226,12 @@ function get_series_info($pdo, $serie_id) {
     return $serie_info_exp;
 }
 
+/**
+ * Adds a serie to the database and checks for validity
+ * @param $serie_info
+ * @param $pdo
+ * @return array
+ */
 function add_series($serie_info, $pdo) {
     /* Check data type*/
     if (!is_numeric($serie_info['Seasons'])) {
@@ -258,6 +288,13 @@ function add_series($serie_info, $pdo) {
     }
 }
 
+/**
+ * Edits a serie in the database and checks for validity
+ * @param $serie_id
+ * @param $serie_info
+ * @param $pdo
+ * @return array
+ */
 function update_series($serie_id, $serie_info, $pdo) {
     /* Check if all fields are set */
     $serie_info['serie_id'] = $serie_id;
@@ -324,6 +361,12 @@ Seasons.'
     }
 }
 
+/**
+ * Removes a serie from the database
+ * @param $pdo
+ * @param $serie_id
+ * @return array
+ */
 function remove_serie($pdo, $serie_id) {
     /* Get series info */
     $serie_info = get_series_info($pdo, $serie_id);
