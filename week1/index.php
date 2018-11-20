@@ -9,7 +9,6 @@
 include 'model.php';
 
 $db = connect_db('localhost', 'ddwt18_week1', 'ddwt18','ddwt18');
-$count = count_series($db);
 
 /* Landing page */
 if (new_route('/DDWT18/week1/', 'get')) {
@@ -184,8 +183,12 @@ elseif (new_route('/DDWT18/week1/edit/', 'get')) {
 
 /* Edit serie POST */
 elseif (new_route('/DDWT18/week1/edit/', 'post')) {
-    /* Get serie info from db */
+
     $serie_id = $_GET['serie_id'];
+    $feedback = update_series($serie_id, $_POST, $db);
+    $error_msg = get_error($feedback);
+
+    /* Get serie info from db */
     $series_info = get_series_info($db, $serie_id);
     $serie_name = $series_info['name'];
     $serie_abstract = $series_info['abstract'];
@@ -212,8 +215,6 @@ elseif (new_route('/DDWT18/week1/edit/', 'post')) {
     $page_content = $series_info['abstract'];
     $submit_btn = "Edit Series";
     $form_action = "/DDWT18/week1/edit/?serie_id=$serie_id";
-    $feedback = update_series($serie_id, $_POST, $db);
-    $error_msg = get_error($feedback);
 
     /* Choose Template */
     include use_template('serie');

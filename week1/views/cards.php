@@ -5,7 +5,7 @@
     </div>
     <div class="card-body">
         <p class="count">Series overview already has</p>
-        <h2><?= $count ?></h2>
+        <h2><?= count_series($db) ?></h2>
         <p>series listed</p>
         <a href="/DDWT18/week1/add/" class="btn btn-primary">List yours</a>
     </div>
