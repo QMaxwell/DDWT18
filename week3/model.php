@@ -258,3 +258,46 @@ function redirect($location){
     header(sprintf('Location: %s', $location));
     die();
 }
+
+/**
+ * Changes the HTTP Header to a given content type
+ * @param string $content_type
+ */
+function http_content_type($content_type) {
+    header("Content-Type: ". $content_type);
+}
+
+/**
+ * Sets credentials using given username and password
+ * @param string $username
+ * @param string $password
+ * @return array
+ */
+function set_cred($username, $password){
+    return [
+        'username'=> $username,
+        'password'=> $password
+    ];
+}
+
+/**
+ * Sets credentials using given username and password
+ * @param array $cred
+ * @return boolean
+ */
+function check_cred($cred){
+    if (!isset($_SERVER['PHP_AUTH_USER'])){
+        return False;
+    }
+    else {
+        if ($_SERVER['PHP_AUTH_USER'] != $cred['username']){
+            return False;
+        }
+        elseif ($_SERVER['PHP_AUTH_PW'] != $cred['password']){
+            return False;
+        }
+        else {
+            return True;
+        }
+    }
+}

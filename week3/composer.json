@@ -1,0 +1,15 @@
+{
+  "name": "vQMaxwell/DDWT18_week3",
+  "description": "",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Quincy",
+      "email": "q.m.woortman@student.rug.nl"
+    }
+  ],
+  "require": {
+    "bramus/router": "1.3"
+  }
+}
